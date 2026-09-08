@@ -1,5 +1,5 @@
 /**
- * modeles.js — bibliothèque de modèles de courriers.
+ * modeles.js - bibliothèque de modèles de courriers.
  */
 
 let modelesList = [];
