@@ -1,5 +1,5 @@
 /**
- * wizard.js — assistant de création d'une nouvelle candidature en 4 étapes.
+ * wizard.js - assistant de création d'une nouvelle candidature en 4 étapes.
  */
 
 let wizardStep = 1;
@@ -54,11 +54,11 @@ function wizardPrev() {
 function renderRecap() {
   document.getElementById('w-recap').innerHTML =
     '<table><tbody>' +
-    '<tr><td><b>Distinction</b></td><td>' + escapeHtml(val('w-type_distinction')) + ' — ' + escapeHtml(val('w-echelon')) + ' (' + escapeHtml(val('w-promotion_annee')) + ')</td></tr>' +
+    '<tr><td><b>Distinction</b></td><td>' + escapeHtml(val('w-type_distinction')) + ' - ' + escapeHtml(val('w-echelon')) + ' (' + escapeHtml(val('w-promotion_annee')) + ')</td></tr>' +
     '<tr><td><b>Candidat</b></td><td>' + escapeHtml(val('w-civilite')) + ' ' + escapeHtml(val('w-prenom')) + ' ' + escapeHtml(val('w-nom').toUpperCase()) + '</td></tr>' +
-    '<tr><td><b>Né(e) le</b></td><td>' + (val('w-date_naissance') ? formatDateFr(val('w-date_naissance')) : '—') + ' à ' + escapeHtml(val('w-lieu_naissance') || '—') + '</td></tr>' +
-    '<tr><td><b>Adresse</b></td><td>' + escapeHtml(val('w-adresse') || '—') + ', ' + escapeHtml(val('w-code_postal') || '') + ' ' + escapeHtml(val('w-ville') || '') + '</td></tr>' +
-    '<tr><td><b>Organisme</b></td><td>' + escapeHtml(val('w-organisme') || '—') + '</td></tr>' +
+    '<tr><td><b>Né(e) le</b></td><td>' + (val('w-date_naissance') ? formatDateFr(val('w-date_naissance')) : '-') + ' à ' + escapeHtml(val('w-lieu_naissance') || '-') + '</td></tr>' +
+    '<tr><td><b>Adresse</b></td><td>' + escapeHtml(val('w-adresse') || '-') + ', ' + escapeHtml(val('w-code_postal') || '') + ' ' + escapeHtml(val('w-ville') || '') + '</td></tr>' +
+    '<tr><td><b>Organisme</b></td><td>' + escapeHtml(val('w-organisme') || '-') + '</td></tr>' +
     '</tbody></table>';
 }
 
