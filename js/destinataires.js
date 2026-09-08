@@ -1,5 +1,5 @@
 /**
- * destinataires.js — gestion de la base des destinataires (services/organismes).
+ * destinataires.js - gestion de la base des destinataires (services/organismes).
  */
 
 let destList = [];
