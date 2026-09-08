@@ -1,5 +1,5 @@
 /**
- * relances.js — vue globale de toutes les relances (planifiées et effectuées).
+ * relances.js - vue globale de toutes les relances (planifiées et effectuées).
  */
 
 async function loadRelances() {
@@ -27,7 +27,7 @@ function renderRelanceTable(list, actionable) {
       const badgeCls = r.urgence === 'retard' ? 'b-red' : r.urgence === 'aujourdhui' ? 'b-amber' : r.urgence === 'faite' ? 'b-green' : 'b-neutral';
       return '<tr>' +
         '<td><a href="dossier.html?id=' + encodeURIComponent(r.dossier_id) + '">' + escapeHtml(r.candidat_nom) + ' ' + escapeHtml(r.candidat_prenom) + '</a></td>' +
-        '<td>' + escapeHtml(r.type_distinction) + ' — ' + escapeHtml(r.echelon || '') + '</td>' +
+        '<td>' + escapeHtml(r.type_distinction) + ' - ' + escapeHtml(r.echelon || '') + '</td>' +
         '<td>' + r.niveau + '</td>' +
         '<td>' + formatDateFr(r.date_prevue) + '</td>' +
         '<td><span class="badge ' + badgeCls + '">' + (r.statut === 'Effectuée' ? 'Effectuée le ' + formatDateFr(r.date_effectuee) : r.urgence) + '</span></td>' +
