@@ -1,5 +1,5 @@
 /**
- * dossiers.js — liste, recherche, tri et filtres des dossiers.
+ * dossiers.js - liste, recherche, tri et filtres des dossiers.
  * Gère aussi la vue "Archives" (dossiers.html?archive=true).
  */
 
@@ -110,9 +110,9 @@ function renderTable() {
       '<td>' + escapeHtml(d.departement || '') + '</td>' +
       '<td>' + formatDateFr(d.date_creation) + '</td>' +
       '<td><span class="badge" data-statut="' + escapeHtml(d.statut) + '">' + escapeHtml(d.statut) + '</span></td>' +
-      '<td>' + (d.date_envoi ? formatDateFr(d.date_envoi) : '—') + '</td>' +
+      '<td>' + (d.date_envoi ? formatDateFr(d.date_envoi) : '-') + '</td>' +
       '<td style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escapeHtml(d.derniere_action || '') + '</td>' +
-      '<td>' + (d.prochaine_relance ? formatDateFr(d.prochaine_relance) : '—') + '</td>' +
+      '<td>' + (d.prochaine_relance ? formatDateFr(d.prochaine_relance) : '-') + '</td>' +
       '</tr>';
   }).join('');
 
