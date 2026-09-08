@@ -1,5 +1,5 @@
 /**
- * dashboard.js — logique de la page Tableau de bord.
+ * dashboard.js - logique de la page Tableau de bord.
  */
 
 const STAT_DEFS = [
@@ -57,7 +57,7 @@ function renderDerniers(list) {
     list.map(function (d) {
       return '<tr class="row-link" onclick="window.location.href=\'dossier.html?id=' + encodeURIComponent(d.id) + '\'">' +
         '<td><b>' + escapeHtml(d.nom) + '</b> ' + escapeHtml(d.prenom) + '</td>' +
-        '<td>' + escapeHtml(d.type_distinction) + ' — ' + escapeHtml(d.echelon || '') + '</td>' +
+        '<td>' + escapeHtml(d.type_distinction) + ' - ' + escapeHtml(d.echelon || '') + '</td>' +
         '<td><span class="badge" data-statut="' + escapeHtml(d.statut) + '">' + escapeHtml(d.statut) + '</span></td>' +
         '<td>' + formatDateTimeFr(d.date_maj) + '</td></tr>';
     }).join('') + '</tbody></table>';
