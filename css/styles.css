@@ -58,7 +58,7 @@ h1,h2,h3{font-family:'Libre Baskerville',serif; color:var(--navy); margin:0 0 8p
 }
 .topbar h1{font-size:20px; margin:0;}
 .topbar .sub{color:var(--text3); font-size:12.5px; margin-top:2px; font-family:'IBM Plex Mono',monospace;}
-.page{padding:28px 32px 80px; max-width:1200px;}
+.page{padding:28px 32px 80px; max-width:1600px; margin:0 auto;}
 
 .mobile-toggle{display:none;}
 @media(max-width:880px){
