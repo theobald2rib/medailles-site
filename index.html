@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="label">Espace privé</div>
+    <h1>Suivi des propositions de distinctions</h1>
+    <p>Connectez-vous avec votre compte Google autorisé pour accéder à vos dossiers.</p>
+    <div id="g_id_button_container">Chargement du bouton de connexion…</div>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script>
+function handleCredentialResponse(response) {
+  doLogin(response.credential);
+}
+
+async function doLogin(idToken) {
+  const errBox = document.getElementById('login-err');
+  errBox.style.display = 'none';
+  try {
+    const data = await apiPost('login', { idToken: idToken });
+    setSession(data);
+    window.location.href = 'dashboard.html';
+  } catch (err) {
+    errBox.textContent = err.message || 'Connexion refusée.';
+    errBox.style.display = 'block';
+  }
+}
+
+function initGoogleButton() {
+  if (APP_CONFIG.GOOGLE_CLIENT_ID.indexOf('COLLER_ICI') === 0) {
+    document.getElementById('g_id_button_container').innerHTML =
+      "<div style='color:var(--red);font-size:13px;'>Configuration incomplète : renseignez GOOGLE_CLIENT_ID dans js/config.js (voir INSTALLATION.md).</div>";
+    return;
+  }
+  google.accounts.id.initialize({
+    client_id: APP_CONFIG.GOOGLE_CLIENT_ID,
+    callback: handleCredentialResponse
+  });
+  document.getElementById('g_id_button_container').innerHTML = '';
+  google.accounts.id.renderButton(
+    document.getElementById('g_id_button_container'),
+    { theme: 'filled_blue', size: 'large', text: 'signin_with', shape: 'pill' }
+  );
+}
+
+// Déjà connecté ? on saute directement au tableau de bord.
+(function () {
+  const session = getSession();
+  if (session && session.token) {
+    window.location.href = 'dashboard.html';
+    return;
+  }
+  window.onload = function () {
+    // le script GSI se charge en async : on attend qu'il soit prêt
+    const check = setInterval(function () {
+      if (window.google && google.accounts && google.accounts.id) {
+        clearInterval(check);
+        initGoogleButton();
+      }
+    }, 100);
+  };
+})();
+</script>
+</body>
+</html>

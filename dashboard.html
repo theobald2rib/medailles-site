@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar-container"></aside>
+  <div class="main">
+    <header class="topbar" id="topbar-container"></header>
+    <div class="page">
+
+      <div class="grid grid-4" id="stats-zone">
+        <div class="empty">Chargement…</div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:18px;align-items:start;">
+        <div class="card">
+          <div class="card-title-row"><h3>À faire</h3></div>
+          <div id="todos-zone"><div class="empty">Chargement…</div></div>
+        </div>
+        <div class="card">
+          <div class="card-title-row"><h3>Échéances à venir</h3></div>
+          <div id="echeances-zone"><div class="empty">Chargement…</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <div class="card-title-row">
+          <h3>Derniers dossiers modifiés</h3>
+          <a class="btn btn-sm" href="dossiers.html">Voir tous les dossiers →</a>
+        </div>
+        <div id="derniers-zone"><div class="empty">Chargement…</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/shell.js"></script>
+<script>initShell('dashboard', 'Tableau de bord', 'Vue d\'ensemble de vos propositions en cours');</script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

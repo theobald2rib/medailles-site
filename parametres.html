@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paramètres — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar-container"></aside>
+  <div class="main">
+    <header class="topbar" id="topbar-container"></header>
+    <div class="page">
+
+      <div class="card">
+        <div class="card-title-row"><h3>Types de distinctions</h3>
+          <button class="btn btn-gold btn-sm" onclick="openTypeModal()">+ Ajouter un type</button></div>
+        <p class="hint">Ajoutez ici une nouvelle médaille ou décoration (échelons, pièces obligatoires, délais de relance) sans toucher au code.</p>
+        <div id="types-zone"><div class="empty">Chargement…</div></div>
+      </div>
+
+      <div class="card">
+        <h3>Comptes autorisés</h3>
+        <p class="hint">La gestion des comptes autorisés (onglet <span class="mono">UTILISATEURS</span>) et des libellés bruts (onglet <span class="mono">CONFIG</span>) se fait directement dans le Google Sheet, comme pour les projets existants — c'est le moyen le plus rapide pour ajouter ou coller plusieurs comptes à la fois.</p>
+        <button class="btn" id="open-sheet-btn" onclick="openSheet()">Ouvrir le Google Sheet ↗</button>
+      </div>
+
+      <div class="card">
+        <h3>Raccourcis</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a class="btn" href="destinataires.html">Gérer les destinataires</a>
+          <a class="btn" href="modeles.html">Gérer les modèles de courrier</a>
+          <a class="btn" href="dossiers.html?archive=true">Voir les archives</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-overlay"><div class="modal" id="modal-content"></div></div>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/shell.js"></script>
+<script>initShell('parametres', 'Paramètres', 'Configuration des distinctions, sans toucher au code');</script>
+<script src="js/parametres.js"></script>
+</body>
+</html>

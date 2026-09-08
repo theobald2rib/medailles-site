@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche dossier — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar-container"></aside>
+  <div class="main">
+    <header class="topbar" id="topbar-container"></header>
+    <div class="page">
+
+      <div id="loading-zone" class="empty">Chargement du dossier…</div>
+
+      <div id="dossier-content" style="display:none;">
+
+        <div class="dossier-head">
+          <div>
+            <h1 id="d-titre">—</h1>
+            <div class="sub" id="d-sous-titre">—</div>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+              <span class="badge" id="d-badge-statut" data-statut="">—</span>
+              <button class="btn btn-sm" onclick="openDriveFolder()">📁 Dossier Drive</button>
+              <button class="btn btn-sm" onclick="window.print()">🖨 Fiche de synthèse</button>
+              <button class="btn btn-sm" id="archive-btn" onclick="archiveThisDossier()">📦 Archiver</button>
+              <button class="btn btn-sm btn-danger" onclick="confirmDeleteDossier()">Supprimer</button>
+            </div>
+          </div>
+          <div class="dossier-progress">
+            <div class="progress-bar"><div id="d-progress-fill" style="width:0%;"></div></div>
+            <div class="progress-label" id="d-progress-label">Dossier complet à 0 %</div>
+            <div class="save-indicator" id="save-indicator" style="margin-top:8px;">&nbsp;</div>
+          </div>
+        </div>
+
+        <div class="tabs no-print">
+          <button class="tab-btn active" data-tab="synthese">Synthèse</button>
+          <button class="tab-btn" data-tab="administratif">Administratif</button>
+          <button class="tab-btn" data-tab="parcours">Parcours</button>
+          <button class="tab-btn" data-tab="merites">Mérites</button>
+          <button class="tab-btn" data-tab="distinctions">Distinctions</button>
+          <button class="tab-btn" data-tab="documents">Documents</button>
+          <button class="tab-btn" data-tab="envoi">Envoi</button>
+          <button class="tab-btn" data-tab="suivi">Suivi</button>
+        </div>
+
+        <!-- ===== SYNTHÈSE ===== -->
+        <div class="tab-panel active" id="tab-synthese">
+          <div class="grid grid-2" style="align-items:start;">
+            <div class="card">
+              <h3>Check-list de complétude</h3>
+              <div id="checklist-zone"></div>
+            </div>
+            <div class="card">
+              <h3>Destinataire</h3>
+              <div id="synth-destinataire"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Résumé court</h3>
+            <p id="synth-resume" style="color:var(--text2);white-space:pre-wrap;"></p>
+          </div>
+        </div>
+
+        <!-- ===== ADMINISTRATIF ===== -->
+        <div class="tab-panel" id="tab-administratif">
+          <div class="card">
+            <h3>Distinction demandée</h3>
+            <div class="grid grid-3">
+              <div class="field"><label>Type de distinction</label><select id="a-type_distinction"></select></div>
+              <div class="field"><label>Échelon</label><select id="a-echelon"></select></div>
+              <div class="field"><label>Année de promotion</label><input type="number" id="a-promotion_annee"></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Département concerné</label><input type="text" id="a-departement" placeholder="ex. 82"></div>
+              <div class="field"><label>Autorité / service destinataire</label><select id="a-autorite_destinataire_id"></select></div>
+            </div>
+            <p class="hint" id="anciennete-hint" style="color:var(--text3);font-size:12px;"></p>
+          </div>
+
+          <div class="card">
+            <h3>Identité</h3>
+            <div class="grid grid-3">
+              <div class="field"><label>Civilité</label>
+                <select id="a-civilite"><option>Monsieur</option><option>Madame</option></select></div>
+              <div class="field"><label>Nom</label><input type="text" id="a-nom"></div>
+              <div class="field"><label>Nom de naissance</label><input type="text" id="a-nom_naissance"></div>
+            </div>
+            <div class="grid grid-3">
+              <div class="field"><label>Prénom(s)</label><input type="text" id="a-prenom"></div>
+              <div class="field"><label>Date de naissance</label><input type="date" id="a-date_naissance"></div>
+              <div class="field"><label>Âge</label><input type="text" id="a-age" disabled></div>
+            </div>
+            <div class="grid grid-3">
+              <div class="field"><label>Lieu de naissance</label><input type="text" id="a-lieu_naissance"></div>
+              <div class="field"><label>Département de naissance</label><input type="text" id="a-departement_naissance"></div>
+              <div class="field"><label>Nationalité</label><input type="text" id="a-nationalite" value="Française"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Coordonnées</h3>
+            <div class="grid grid-2">
+              <div class="field"><label>Adresse</label><input type="text" id="a-adresse"></div>
+              <div class="field"><label>Complément</label><input type="text" id="a-complement"></div>
+            </div>
+            <div class="grid grid-3">
+              <div class="field"><label>Code postal</label><input type="text" id="a-code_postal"></div>
+              <div class="field"><label>Ville</label><input type="text" id="a-ville"></div>
+              <div class="field"><label>Département</label><input type="text" id="a-departement_candidat"></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Téléphone</label><input type="tel" id="a-telephone"></div>
+              <div class="field"><label>E-mail</label><input type="email" id="a-email"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Situation</h3>
+            <div class="grid grid-2">
+              <div class="field"><label>Profession</label><input type="text" id="a-profession"></div>
+              <div class="field"><label>Fonction actuelle</label><input type="text" id="a-fonction"></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Organisme / association</label><input type="text" id="a-organisme"></div>
+              <div class="field"><label>Adresse de l'organisme</label><input type="text" id="a-organisme_adresse"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PARCOURS ===== -->
+        <div class="tab-panel" id="tab-parcours">
+          <div class="card">
+            <div class="card-title-row">
+              <h3>Chronologie</h3>
+              <div><span class="badge b-gold" id="parcours-anciennete"></span> <button class="btn btn-sm btn-gold" onclick="openParcoursModal()">+ Ajouter une ligne</button></div>
+            </div>
+            <div id="parcours-zone"><div class="empty">Chargement…</div></div>
+          </div>
+        </div>
+
+        <!-- ===== MÉRITES ===== -->
+        <div class="tab-panel" id="tab-merites">
+          <div class="card">
+            <h3>Notes libres</h3>
+            <textarea id="m-notes_libres" rows="4" placeholder="Toutes vos notes de préparation…"></textarea>
+          </div>
+          <div class="card">
+            <div class="card-title-row">
+              <h3>Faits marquants</h3>
+              <button class="btn btn-sm btn-gold" onclick="openFaitModal()">+ Ajouter</button>
+            </div>
+            <div id="faits-zone"><div class="empty">Chargement…</div></div>
+          </div>
+          <div class="card">
+            <h3>Résumé court</h3>
+            <textarea id="m-resume_court" rows="4" maxlength="1000" placeholder="Version synthétique (quelques lignes)"></textarea>
+          </div>
+          <div class="card">
+            <h3>Exposé développé</h3>
+            <textarea id="m-expose_developpe" rows="10" placeholder="Version complète du parcours et des mérites"></textarea>
+            <p class="hint">L'assistance rédactionnelle par IA n'est pas configurée dans cette V1 : vous pouvez rédiger librement à partir des faits marquants et du parcours ci-dessus. Cette zone reste éditable manuellement dans tous les cas.</p>
+          </div>
+        </div>
+
+        <!-- ===== DISTINCTIONS ANTÉRIEURES ===== -->
+        <div class="tab-panel" id="tab-distinctions">
+          <div class="card">
+            <div class="card-title-row">
+              <h3>Distinctions antérieures</h3>
+              <button class="btn btn-sm btn-gold" onclick="openDistinctionModal()">+ Ajouter</button>
+            </div>
+            <div id="distinctions-zone"><div class="empty">Chargement…</div></div>
+          </div>
+        </div>
+
+        <!-- ===== DOCUMENTS ===== -->
+        <div class="tab-panel" id="tab-documents">
+          <div class="card">
+            <h3>Déposer une pièce</h3>
+            <div class="grid grid-2">
+              <div class="field"><label>Type de pièce</label><select id="doc-type"></select></div>
+              <div class="field"><label>Commentaire (facultatif)</label><input type="text" id="doc-commentaire"></div>
+            </div>
+            <div class="file-drop" id="doc-drop">
+              <input type="file" id="doc-file">
+              <div>Cliquez ou glissez un fichier ici (25 Mo maximum)</div>
+            </div>
+            <div id="doc-upload-status" class="hint"></div>
+          </div>
+          <div class="card">
+            <h3>Pièces du dossier</h3>
+            <div id="documents-zone"><div class="empty">Chargement…</div></div>
+          </div>
+        </div>
+
+        <!-- ===== ENVOI ===== -->
+        <div class="tab-panel" id="tab-envoi">
+          <div class="card">
+            <h3>Enregistrer l'envoi du dossier</h3>
+            <div class="grid grid-2">
+              <div class="field"><label>Date d'envoi</label><input type="date" id="e-date_envoi"></div>
+              <div class="field"><label>Mode d'envoi</label>
+                <select id="e-mode_envoi">
+                  <option>Courrier</option><option>E-mail</option><option>Plateforme</option>
+                  <option>Remise en main propre</option><option>Autre</option>
+                </select></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Destinataire</label><input type="text" id="e-destinataire_envoi"></div>
+              <div class="field"><label>Référence administrative</label><input type="text" id="e-reference_admin"></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Numéro de courrier</label><input type="text" id="e-numero_courrier"></div>
+              <div class="field"><label>Numéro de recommandé</label><input type="text" id="e-numero_recommande"></div>
+            </div>
+            <div class="field"><label>Commentaire</label><textarea id="e-commentaire_envoi" rows="2"></textarea></div>
+            <button class="btn btn-primary" onclick="submitEnvoi()">Enregistrer l'envoi</button>
+            <p class="hint">Le PDF exact envoyé peut être déposé dans l'onglet Documents (type « Dossier PDF final ») : il sera automatiquement classé dans le sous-dossier Drive « 04 - Dossier envoyé ».</p>
+          </div>
+        </div>
+
+        <!-- ===== SUIVI ===== -->
+        <div class="tab-panel" id="tab-suivi">
+          <div class="card">
+            <h3>Relances</h3>
+            <div id="relances-zone"><div class="empty">Chargement…</div></div>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
+              <div class="field" style="margin:0;"><label>Programmer une relance</label><input type="date" id="rel-date"></div>
+              <button class="btn btn-sm btn-gold" onclick="planRelance()">Programmer</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Ajouter un événement à l'historique</h3>
+            <div style="display:flex;gap:8px;">
+              <input type="text" id="hist-note" placeholder="ex. Accusé de réception reçu par courrier">
+              <button class="btn btn-sm" onclick="addNote()">Ajouter</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Journal des actions</h3>
+            <div id="historique-zone"><div class="empty">Chargement…</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modales génériques -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/shell.js"></script>
+<script>initShell('dossiers', 'Fiche dossier', '');</script>
+<script src="js/dossier.js"></script>
+</body>
+</html>

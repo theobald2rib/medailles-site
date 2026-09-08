@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modèles de courrier — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar-container"></aside>
+  <div class="main">
+    <header class="topbar" id="topbar-container"></header>
+    <div class="page">
+      <div class="card-title-row" style="margin-bottom:14px;">
+        <div></div>
+        <button class="btn btn-gold" onclick="openModeleModal()">+ Nouveau modèle</button>
+      </div>
+      <div id="modeles-list"><div class="empty">Chargement…</div></div>
+      <div class="card" style="margin-top:14px;">
+        <h3>Variables disponibles</h3>
+        <p class="hint mono">{{CIVILITE}} {{NOM}} {{PRENOM}} {{DATE_NAISSANCE}} {{LIEU_NAISSANCE}} {{ADRESSE}} {{CODE_POSTAL}} {{VILLE}} {{PROFESSION}} {{MEDAILLE}} {{ECHELON}} {{DATE_ENVOI}} {{REFERENCE}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-overlay"><div class="modal" id="modal-content"></div></div>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/shell.js"></script>
+<script>initShell('modeles', 'Modèles de courrier', 'Bibliothèque de courriers réutilisables');</script>
+<script src="js/modeles.js"></script>
+</body>
+</html>

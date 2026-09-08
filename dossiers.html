@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossiers — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar-container"></aside>
+  <div class="main">
+    <header class="topbar" id="topbar-container"></header>
+    <div class="page">
+
+      <div class="filter-bar">
+        <input type="text" id="f-search" class="search-box" placeholder="Rechercher un nom, une association…">
+        <select id="f-statut"><option value="">Tous les statuts</option></select>
+        <select id="f-annee"><option value="">Toutes les années</option></select>
+        <select id="f-echelon"><option value="">Tous les échelons</option></select>
+        <select id="f-departement"><option value="">Tous les départements</option></select>
+        <a class="btn btn-gold" href="nouvelle-candidature.html">+ Nouvelle candidature</a>
+      </div>
+
+      <div class="card">
+        <div id="dossiers-zone"><div class="empty">Chargement…</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/shell.js"></script>
+<script>initShell('dossiers', 'Dossiers', 'Toutes vos candidatures en un coup d\'œil');</script>
+<script src="js/dossiers.js"></script>
+</body>
+</html>

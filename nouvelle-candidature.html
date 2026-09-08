@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nouvelle candidature — Suivi des distinctions honorifiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar-container"></aside>
+  <div class="main">
+    <header class="topbar" id="topbar-container"></header>
+    <div class="page" style="max-width:760px;">
+
+      <div class="wizard-steps">
+        <div class="wizard-step active" id="ws-1">1. Distinction</div>
+        <div class="wizard-step" id="ws-2">2. Identité</div>
+        <div class="wizard-step" id="ws-3">3. Coordonnées</div>
+        <div class="wizard-step" id="ws-4">4. Récapitulatif</div>
+      </div>
+
+      <!-- ÉTAPE 1 -->
+      <div class="card wizard-panel" id="wp-1">
+        <h3>Distinction envisagée</h3>
+        <div class="grid grid-2">
+          <div class="field"><label>Type de distinction</label><select id="w-type_distinction"></select></div>
+          <div class="field"><label>Échelon</label><select id="w-echelon"></select></div>
+        </div>
+        <div class="grid grid-2">
+          <div class="field"><label>Année de promotion</label><input type="number" id="w-promotion_annee"></div>
+          <div class="field"><label>Département concerné</label><input type="text" id="w-departement" placeholder="ex. 82"></div>
+        </div>
+        <p class="hint" id="w-anciennete-hint" style="color:var(--text3);"></p>
+      </div>
+
+      <!-- ÉTAPE 2 -->
+      <div class="card wizard-panel" id="wp-2" style="display:none;">
+        <h3>Identité du candidat</h3>
+        <div class="grid grid-3">
+          <div class="field"><label>Civilité</label><select id="w-civilite"><option>Monsieur</option><option>Madame</option></select></div>
+          <div class="field"><label>Nom</label><input type="text" id="w-nom"></div>
+          <div class="field"><label>Prénom(s)</label><input type="text" id="w-prenom"></div>
+        </div>
+        <div class="grid grid-2">
+          <div class="field"><label>Date de naissance</label><input type="date" id="w-date_naissance"></div>
+          <div class="field"><label>Lieu de naissance</label><input type="text" id="w-lieu_naissance"></div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 -->
+      <div class="card wizard-panel" id="wp-3" style="display:none;">
+        <h3>Coordonnées</h3>
+        <div class="grid grid-2">
+          <div class="field"><label>Adresse</label><input type="text" id="w-adresse"></div>
+          <div class="field"><label>Ville</label><input type="text" id="w-ville"></div>
+        </div>
+        <div class="grid grid-2">
+          <div class="field"><label>Code postal</label><input type="text" id="w-code_postal"></div>
+          <div class="field"><label>E-mail</label><input type="email" id="w-email"></div>
+        </div>
+        <div class="grid grid-2">
+          <div class="field"><label>Organisme / association</label><input type="text" id="w-organisme"></div>
+          <div class="field"><label>Fonction actuelle</label><input type="text" id="w-fonction"></div>
+        </div>
+        <p class="hint">Tous les autres champs (téléphone, profession, etc.) pourront être complétés depuis la fiche du dossier.</p>
+      </div>
+
+      <!-- ÉTAPE 4 -->
+      <div class="card wizard-panel" id="wp-4" style="display:none;">
+        <h3>Récapitulatif</h3>
+        <div id="w-recap"></div>
+        <p class="hint">La création du dossier génère automatiquement son dossier Google Drive (5 sous-dossiers) et l'inscrit dans votre tableau de bord.</p>
+      </div>
+
+      <div class="wizard-nav">
+        <button class="btn" id="w-prev" onclick="wizardPrev()" disabled>← Précédent</button>
+        <button class="btn btn-gold" id="w-next" onclick="wizardNext()">Suivant →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/shell.js"></script>
+<script>initShell('nouvelle', 'Nouvelle candidature', 'Assistant de création en 4 étapes');</script>
+<script src="js/wizard.js"></script>
+</body>
+</html>
