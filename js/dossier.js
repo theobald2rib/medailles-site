@@ -1,5 +1,5 @@
 /**
- * dossier.js — logique complète de la fiche dossier (tous les onglets).
+ * dossier.js - logique complète de la fiche dossier (tous les onglets).
  */
 
 const DOSSIER_ID = qs('id');
@@ -49,11 +49,11 @@ function renderHeader() {
   const c = DATA.candidat || {};
   const d = DATA.dossier;
   document.getElementById('d-titre').textContent = (c.civilite === 'Madame' ? 'Mme ' : 'M. ') + (c.prenom || '') + ' ' + (c.nom || '').toUpperCase();
-  document.getElementById('d-sous-titre').textContent = 'Médaille ' + d.type_distinction + (d.echelon ? ' — ' + d.echelon : '') + ' · Promotion ' + d.promotion_annee;
+  document.getElementById('d-sous-titre').textContent = 'Médaille ' + d.type_distinction + (d.echelon ? ' - ' + d.echelon : '') + ' · Promotion ' + d.promotion_annee;
   const badge = document.getElementById('d-badge-statut');
   badge.textContent = d.statut;
   badge.setAttribute('data-statut', d.statut);
-  document.title = (c.prenom || '') + ' ' + (c.nom || '') + ' — Fiche dossier';
+  document.title = (c.prenom || '') + ' ' + (c.nom || '') + ' - Fiche dossier';
 }
 
 function renderChecklist() {
@@ -72,7 +72,7 @@ function renderSynthese() {
     '<b>' + escapeHtml(dest.service || dest.organisme) + '</b><br>' +
     escapeHtml(dest.adresse || '') + '<br>' + escapeHtml(dest.code_postal || '') + ' ' + escapeHtml(dest.ville || '') +
     '<div style="margin-top:8px;"><button class="btn btn-sm" onclick="copyAdresse()">Copier l\'adresse</button></div>' :
-    '<div class="empty">Aucun destinataire sélectionné — renseignez-le dans l\'onglet Administratif.</div>';
+    '<div class="empty">Aucun destinataire sélectionné - renseignez-le dans l\'onglet Administratif.</div>';
   document.getElementById('synth-resume').textContent = DATA.dossier.resume_court || 'Aucun résumé rédigé pour le moment.';
 }
 
@@ -174,7 +174,7 @@ async function loadDestinatairesOptions() {
   try {
     const list = await apiGet('getDestinataires', { type_distinction: DATA.dossier.type_distinction, departement: DATA.dossier.departement });
     const sel = document.getElementById('a-autorite_destinataire_id');
-    sel.innerHTML = '<option value="">— À sélectionner —</option>' +
+    sel.innerHTML = '<option value="">- À sélectionner -</option>' +
       list.map(function (dst) { return '<option value="' + dst.id + '">' + escapeHtml(dst.service || dst.organisme) + (dst.ville ? ' (' + dst.ville + ')' : '') + '</option>'; }).join('');
     sel.value = DATA.dossier.autorite_destinataire_id || '';
   } catch (e) { /* non bloquant */ }
@@ -248,7 +248,7 @@ function renderParcours() {
   if (list.length === 0) { zone.innerHTML = '<div class="empty">Aucune ligne de parcours pour le moment.</div>'; return; }
   zone.innerHTML = '<ul class="timeline">' + list.map(function (p) {
     return '<li><span class="t-date">' + formatDateFr(p.date_debut) + ' – ' + (p.date_fin ? formatDateFr(p.date_fin) : "aujourd'hui") + '</span>' +
-      '<div class="t-desc" style="flex:1;"><b>' + escapeHtml(p.fonction || '') + '</b>' + (p.organisme ? ' — ' + escapeHtml(p.organisme) : '') +
+      '<div class="t-desc" style="flex:1;"><b>' + escapeHtml(p.fonction || '') + '</b>' + (p.organisme ? ' - ' + escapeHtml(p.organisme) : '') +
       (p.association ? ' (' + escapeHtml(p.association) + ')' : '') +
       (p.description ? '<br><span style="color:var(--text3);font-size:12.5px;">' + escapeHtml(p.description) + '</span>' : '') + '</div>' +
       '<div><button class="btn btn-sm" onclick="openParcoursModal(\'' + p.id + '\')">Modifier</button> ' +
@@ -312,7 +312,7 @@ function renderFaits() {
   if (list.length === 0) { zone.innerHTML = '<div class="empty">Aucun fait marquant enregistré.</div>'; return; }
   zone.innerHTML = list.map(function (f) {
     return '<div class="doc-item"><div><div class="doc-name">' + escapeHtml(f.categorie || '') + '</div>' +
-      '<div class="doc-meta">' + escapeHtml(f.description || '') + (f.date ? ' — ' + formatDateFr(f.date) : '') + '</div></div>' +
+      '<div class="doc-meta">' + escapeHtml(f.description || '') + (f.date ? ' - ' + formatDateFr(f.date) : '') + '</div></div>' +
       '<div><button class="btn btn-sm" onclick="openFaitModal(\'' + f.id + '\')">Modifier</button> ' +
       '<button class="btn btn-sm btn-danger" onclick="deleteFait(\'' + f.id + '\')">Suppr.</button></div></div>';
   }).join('');
@@ -350,7 +350,7 @@ function renderDistinctions() {
   const zone = document.getElementById('distinctions-zone');
   if (list.length === 0) { zone.innerHTML = '<div class="empty">Aucune distinction antérieure enregistrée.</div>'; return; }
   zone.innerHTML = list.map(function (d) {
-    return '<div class="doc-item"><div><div class="doc-name">' + escapeHtml(d.distinction || '') + (d.echelon ? ' — ' + escapeHtml(d.echelon) : '') + '</div>' +
+    return '<div class="doc-item"><div><div class="doc-name">' + escapeHtml(d.distinction || '') + (d.echelon ? ' - ' + escapeHtml(d.echelon) : '') + '</div>' +
       '<div class="doc-meta">Attribuée le ' + formatDateFr(d.date_attribution) + (d.observations ? ' · ' + escapeHtml(d.observations) : '') + '</div></div>' +
       '<div><button class="btn btn-sm" onclick="openDistinctionModal(\'' + d.id + '\')">Modifier</button> ' +
       '<button class="btn btn-sm btn-danger" onclick="deleteDistinction(\'' + d.id + '\')">Suppr.</button></div></div>';
@@ -495,7 +495,7 @@ function renderRelances() {
     const badge = r.statut === 'Effectuée' ? '<span class="badge b-green">Effectuée</span>' :
       (r.date_prevue < todayStr_() ? '<span class="badge b-red">En retard</span>' :
         r.date_prevue === todayStr_() ? '<span class="badge b-amber">Aujourd\'hui</span>' : '<span class="badge b-neutral">Planifiée</span>');
-    return '<div class="doc-item"><div><div class="doc-name">Relance niveau ' + r.niveau + ' — ' + formatDateFr(r.date_prevue) + '</div>' +
+    return '<div class="doc-item"><div><div class="doc-name">Relance niveau ' + r.niveau + ' - ' + formatDateFr(r.date_prevue) + '</div>' +
       '<div class="doc-meta">' + escapeHtml(r.commentaire || '') + (r.date_effectuee ? ' · effectuée le ' + formatDateFr(r.date_effectuee) : '') + '</div></div>' +
       '<div>' + badge + ' ' +
       (r.statut !== 'Effectuée' ? '<button class="btn btn-sm btn-gold" onclick="prepareRelance(\'' + r.id + '\')">Préparer la relance</button> <button class="btn btn-sm" onclick="doMarkRelanceDone(\'' + r.id + '\')">Marquer effectuée</button>' : '') +
@@ -534,7 +534,7 @@ async function prepareRelance(id) {
     const objet = mergeModele(modele.objet, DATA);
     const corps = mergeModele(modele.corps, DATA);
     const email = DATA.destinataire ? DATA.destinataire.email : '';
-    openModal('<h3>Relance — ' + escapeHtml(objet) + '</h3>' +
+    openModal('<h3>Relance - ' + escapeHtml(objet) + '</h3>' +
       '<div class="field"><label>Objet</label><input type="text" id="prep-objet" value="' + escapeHtml(objet) + '"></div>' +
       '<div class="field"><label>Corps du message</label><textarea id="prep-corps" rows="10">' + escapeHtml(corps) + '</textarea></div>' +
       '<div class="modal-actions">' +
