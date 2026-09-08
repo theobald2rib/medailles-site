@@ -12,9 +12,9 @@
  */
 const APP_CONFIG = {
   // ⚠️ À COMPLÉTER après le déploiement Apps Script : URL se terminant par /exec
-  API_URL: 'COLLER_ICI_URL_APPS_SCRIPT_EXEC',
+  API_URL: 'https://script.google.com/macros/s/AKfycbzg84hppUAnH9Clin1KId62r5M-VoHZ38TSDDUE4gRZ7IV0-rHD_pJWVM2vwQ64Udgs4Q/exec',
 
   // ⚠️ À COMPLÉTER : ID client OAuth Google (Google Cloud Console > Identifiants)
   // Doit être IDENTIQUE à la propriété de script GOOGLE_CLIENT_ID côté Apps Script.
-  GOOGLE_CLIENT_ID: 'COLLER_ICI_VOTRE_CLIENT_ID.apps.googleusercontent.com'
+  GOOGLE_CLIENT_ID: '1093934650261-9nrpe9pu9nc9d1vlhn155osnvd09a365.apps.googleusercontent.com'
 };
