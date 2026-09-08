@@ -1,5 +1,5 @@
 /**
- * parametres.js — administration des types de distinctions (médailles) et raccourcis.
+ * parametres.js - administration des types de distinctions (médailles) et raccourcis.
  */
 
 let paramConfig = null;
